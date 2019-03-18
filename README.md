@@ -1,9 +1,6 @@
-# iWeather Ionic 3 Weather App
+# Weather App
 
-An Ionic 3 application with api iweather
-
-### Version
-1.0.0
+An Ionic 3 application with api openweather
 
 ### Installation
 
