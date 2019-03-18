@@ -1,0 +1,7 @@
+{
+  "name": "iweather",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

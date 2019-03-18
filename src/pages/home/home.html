@@ -1,0 +1,114 @@
+<ion-header no-border>
+	<ion-navbar transparent>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>{{cityName}}</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content [ngStyle]="{'background-image': 'url('+ bgImage +')'}" class="slides-page">
+	<ion-slides pager="true" #slideRef (ionSlideDidChange)="slideChanged()">
+		<ion-slide *ngFor="let slide of slides">
+			<ion-card class="current-temp">
+				<ion-card-content class="cardContent">
+					<ion-grid>
+						<ion-row>
+							<ion-col width-50 offset-25>
+								<h2 class="temp">{{ slide.current.main.temp }}&deg;</h2>
+								<ion-avatar><img src="{{ slide.icon }}"></ion-avatar>
+								<h3 class="desc">{{ slide.current.weather[0].description }}</h3>
+							</ion-col>
+						</ion-row>
+						<ion-row class="row-content">
+							<ion-col col-4>{{ windDirection(slide.current.wind.deg) }}</ion-col>
+							<ion-col col-4>{{ slide.current.wind.speed }}M/S</ion-col>
+							<ion-col col-4>{{ slide.current.main.humidity }}%</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-card-content>
+			</ion-card>
+
+			<ion-card class="card-ion">
+				<ion-card-content>
+					<ion-card-header>Detalhes</ion-card-header>
+					<ion-grid class="card-list">
+						<ion-row class="rowDetail">
+							<ion-col col-6 class="itemName">
+								<ion-icon name="cloud"></ion-icon>
+								Pressão do ar
+							</ion-col>
+							<ion-col col-6 class="col_ion">{{ slide.current.main.pressure}}HPa</ion-col>
+						</ion-row>
+						<ion-row class="rowDetail">
+							<ion-col col-6 class="itemName">
+								<ion-icon name="umbrella"></ion-icon>
+								Humidade
+							</ion-col>
+							<ion-col col-6 class="col_ion">{{ slide.current.main.humidity }}%</ion-col>
+						</ion-row>
+						<ion-row class="rowDetail">
+							<ion-col col-6 class="itemName">
+								<ion-icon name="eye"></ion-icon>
+								Visibilidade
+							</ion-col>
+							<ion-col col-6 class="col_ion">{{ slide.current.visibility }}</ion-col>
+						</ion-row>
+						<ion-row class="rowDetail">
+							<ion-col col-6 class="itemName">
+								<ion-icon name="ios-globe"></ion-icon>
+								Longitude
+							</ion-col>
+							<ion-col col-6 class="col_ion">{{ slide.current.coord.lon }}</ion-col>
+						</ion-row>
+						<ion-row class="rowDetail">
+							<ion-col col-6 class="itemName">
+								<ion-icon name="ios-globe"></ion-icon>
+								Latitude
+							</ion-col>
+							<ion-col col-6 class="col_ion">{{ slide.current.coord.lat }}</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-card-content>
+			</ion-card>
+
+			<ion-card class="card-ion">
+				<ion-card-content>
+					<ion-card-header>Vento</ion-card-header>
+					<ion-grid class="card-list">
+						<ion-row class="rowDetail">
+							<ion-col col-6 class="itemName">
+								<ion-icon name="compass"></ion-icon>
+								Direção
+							</ion-col>
+							<ion-col col-6 class="col_ion">{{ windDirection(slide.current.wind.deg) }}</ion-col>
+						</ion-row>
+						<ion-row class="rowDetail">
+							<ion-col col-6 class="itemName">
+								<ion-icon name="speedometer"></ion-icon>
+								Velocidade
+							</ion-col>
+							<ion-col col-6 class="col_ion">{{ slide.current.wind.speed}}M/S</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-card-content>
+			</ion-card>
+
+			<ion-card class="card-ion" style="margin-bottom: 30px !important">
+				<ion-card-content>
+					<ion-card-header>Previsão de 5 dias (intervalo de 3 horas)</ion-card-header>
+					<ion-grid class="card-grid">
+						<ion-row *ngFor="let forecast of slide.forecast.list; let i = index">
+							<ion-col col-6>{{ GetDay(forecast.dt) }}</ion-col>
+							<ion-col col-6>{{ GetDate(forecast.dt) }}</ion-col>
+							<ion-col col-6 class="col-img">
+								<img src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png">
+							</ion-col>
+							<ion-col col-6>{{ forecast.main.temp }}&deg;</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-card-content>
+			</ion-card>
+		
+		</ion-slide>
+	</ion-slides>
+</ion-content>
