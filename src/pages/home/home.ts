@@ -15,16 +15,16 @@ export class HomePage {
 	cityName: string;
 	slides = [];
 	bgImage: string;
-
+ 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
 		this.locationInfo = this.navParams.get("weatherInfo");
 		if (this.locationInfo) this.bgImage = this.BgImage(this.locationInfo.current.weather[0].main);
 
-		this.storage.forEach((value, key, index) => {
+		/*this.storage.forEach((value, key, index) => {
 			this.slides.push(JSON.parse(value));
-		});
+		});*/
 	}
-
+ 
 	ionViewDidLoad() {
 		this.locationInfo = this.navParams.get("weatherInfo");
 
@@ -50,13 +50,13 @@ export class HomePage {
 		let day 	= new Date(time * 1000).toISOString();
 		let d 		= new Date(day);
 		let weekday = [];
-		weekday[0] 	= "Sun";
-		weekday[1] 	= "Mon";
-		weekday[2] 	= "Tues";
-		weekday[3] 	= "Wed";
-		weekday[4] 	= "Thurs";
-		weekday[5] 	= "Fri";
-		weekday[6] 	= "Sat";
+		weekday[0] 	= "Seg";
+		weekday[1] 	= "Ter";
+		weekday[2] 	= "Qua";
+		weekday[3] 	= "Qui";
+		weekday[4] 	= "Sex";
+		weekday[5] 	= "Sáb";
+		weekday[6] 	= "Dom";
 		
 		return weekday[d.getDay()];
 	}
@@ -117,6 +117,24 @@ export class HomePage {
 			return './assets/imgs/thunder.jpg';
 		} else {
 			return './assets/imgs/clear.jpg';
+		}
+	}
+
+	checkDescription(description: string){
+		if (description == 'clear sky') {
+			return "Céu limpo";
+		} else if (description == 'broken clouds') {
+			return "Nuvens quebradas";
+		} else if (description == 'shower rain') {
+			return "Banho de chuva";
+		} else if (description == 'rain') {
+			return "Chovendo";
+		} else if (description == 'thunderstorm') {
+			return "Tempestade de raios";
+		} else if (description == 'few clouds') {
+			return "Alguns nuvens";
+		} else {
+			return "Neve";
 		}
 	}
 }

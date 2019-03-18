@@ -16,7 +16,7 @@
 							<ion-col width-50 offset-25>
 								<h2 class="temp">{{ slide.current.main.temp }}&deg;</h2>
 								<ion-avatar><img src="{{ slide.icon }}"></ion-avatar>
-								<h3 class="desc">{{ slide.current.weather[0].description }}</h3>
+								<h3 class="desc">{{ checkDescription(slide.current.weather[0].description) }}</h3>
 							</ion-col>
 						</ion-row>
 						<ion-row class="row-content">
@@ -92,7 +92,7 @@
 					</ion-grid>
 				</ion-card-content>
 			</ion-card>
-
+			
 			<ion-card class="card-ion" style="margin-bottom: 30px !important">
 				<ion-card-content>
 					<ion-card-header>Previsão de 5 dias (intervalo de 3 horas)</ion-card-header>

@@ -15,9 +15,7 @@ export class MyApp implements OnInit, AfterViewInit {
 	@ViewChild(Nav) nav: Nav;
 	rootPage: string = "HomePage";
 
-	hideDelete = false;
 	loc: string;
-	weatherUnits = [];
 	weather: any;
 	forecast: any;
 	pages: any[] = [];
@@ -37,20 +35,20 @@ export class MyApp implements OnInit, AfterViewInit {
 		this.weatherProvider.getPosition().then(resp => {
 			this.weatherProvider.currentWeather(resp.coords.longitude, resp.coords.latitude).subscribe(res => {
 				if (res.length > 0) {
-					let body = JSON.parse(res[0]._body)
-					let other = JSON.parse(res[1]._body)
+					let weather     = JSON.parse(res[0]._body)
+					let forecast = JSON.parse(res[1]._body)
 					
-					this.weather = body;
-					this.loc 	 = body.name;
+					this.weather = weather;
+					this.loc 	 = weather.name;
 					
 					this.location = {
-						id: body.id,
-						icon: `http://openweathermap.org/img/w/${body.weather[0].icon}.png`,
-						current: body,
-						forecast: other
+						id: weather.id,
+						icon: `http://openweathermap.org/img/w/${weather.weather[0].icon}.png`,
+						current: weather,
+						forecast: forecast
 					}
 
-					this.storage.set(`location ${body.id}`, JSON.stringify(this.location));
+					this.storage.set(`location ${weather.id}`, JSON.stringify(this.location));
 
 					if (this.pages.length <= 0) this.events.publish("cityinfo", this.location);
 					this.nav.setRoot("HomePage", { "weatherInfo": this.location });
